@@ -14,6 +14,21 @@
 #include <string.h>
 #include <stdbool.h>
 
+
+
+#define __KEY_VALUE_STORE_SIZE__	50*1024*1024 
+#define __KV_WRITERS_SEMAPHORE__	"WRITER_SMAIN_260635878"
+#define __KV_READERS_SEMAPHORE__	"READER_SMAIN_260635878" 
+#define __KV_STORE_NAME__			"KV_STORE_SMAIN_260635878"
+#define KV_EXIT_SUCCESS				0
+#define KV_EXIT_FAILURE				-1
+#define KEY_SIZE 					32
+#define VALUE_SIZE 					256
+#define CONTAINER_SIZE 				16
+
+sem_t writer_lock, reader_lock;
+int read_count;
+
 /* -------------------------------------
 	Define your own globals here
 ----------------------------------------
