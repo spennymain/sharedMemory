@@ -26,7 +26,6 @@ int kv_store_create(char *kv_store_name){
 
 	close(fd);
 	munmap(address, __KEY_VALUE_STORE_SIZE__);
-	
 	return 0;
 }
 
@@ -152,7 +151,7 @@ char **kv_store_read_all(char *key){
 
 	for(int i=0; i<CONTAINER_SIZE; i++){
 		if(strcmp(container[index].key, key)==0){
-			toReturn[i]=container[index].value[i]; //returns first discovered value for particular key
+			toReturn[i]=container[index].value[i]; //returns array of strings 
 			break;
 		}
 	}
@@ -165,6 +164,7 @@ char **kv_store_read_all(char *key){
 	}
 	sem_post(&reader_lock);
 
+	//freeing memory
 	close(fd);
 	munmap(container,__KEY_VALUE_STORE_SIZE__);
 	free(container);
@@ -184,5 +184,4 @@ int kv_create(){
 	sem_t writer_lock = sem_open(__KV_WRITERS_SEMAPHORE__, O_CREAT | O_EXCL, 0644, 1);
     sem_t reader_lock = sem_open(__KV_READERS_SEMAPHORE__, O_CREAT | O_EXCL, 0644, 1);
 }
-
 
